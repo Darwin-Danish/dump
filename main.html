@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CARLOS SAINZ | The Smooth Operator Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Michroma for that F1/Data look, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Michroma&display=swap" rel="stylesheet">
+
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
+
+    <style>
+        :root {
+            --midnight: #0a192f;
+            --carbon: #121212;
+            --silver: #e2e8f0;
+            --ferrari-red: #ff2800;
+            --spain-yellow: #ffcc00;
+        }
+
+        body {
+            background-color: var(--carbon);
+            color: var(--silver);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Hide scrollbar for GSAP pinning */
+        }
+
+        h1, h2, h3, .data-font {
+            font-family: 'Michroma', sans-serif;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        /* Custom Scrollbar Hide */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        /* F1 Grid Texture Background */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Text Stroke Effect for "Hollow" Text */
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            color: transparent;
+            transition: all 0.5s ease;
+        }
+        
+        .text-stroke:hover {
+            -webkit-text-stroke: 1px var(--ferrari-red);
+            color: rgba(255, 40, 0, 0.1);
+        }
+
+        /* Smooth Reveal Mask */
+        .reveal-mask {
+            clip-path: inset(0 0 0 0);
+        }
+
+        /* Custom Cursor for that "Digital" feel */
+        .cursor-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--ferrari-red);
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            mix-blend-mode: difference;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-red-600 selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference text-white">
+        <div class="text-xs tracking-[0.2em] font-bold data-font">CS // 55</div>
+        <div class="flex gap-8 text-xs font-light tracking-widest">
+            <a href="#" class="hover:text-red-500 transition-colors duration-300">TELEMETRY</a>
+            <a href="#" class="hover:text-red-500 transition-colors duration-300">CIRCUITS</a>
+            <a href="#" class="hover:text-yellow-400 transition-colors duration-300">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-gradient-to-b from-[#0a192f] to-[#121212]">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 grid-bg opacity-30"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-blue-900/10 rounded-full blur-[100px] animate-pulse"></div>
+
+        <div class="relative z-10 text-center parallax-target" data-speed="0.5">
+            <h2 class="text-sm md:text-base tracking-[0.5em] text-red-500 mb-4 font-bold animate-in-up">SCUDERIA AESTHETIC</h2>
+            <h1 class="text-6xl md:text-9xl font-black leading-tight">
+                <div class="overflow-hidden">
+                    <span class="block transform translate-y-full hero-text-reveal">SMOOTH</span>
+                </div>
+                <div class="overflow-hidden">
+                    <span class="block transform translate-y-full hero-text-reveal text-stroke">OPERATOR</span>
+                </div>
+            </h1>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 fade-in-delay">
+            <span class="text-[10px] uppercase tracking-widest text-gray-500">Initiate Race Mode</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-red-500 to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- TELEMETRY (ABOUT) SECTION -->
+    <section class="relative py-24 bg-[#121212] border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                
+                <!-- Text Content -->
+                <div class="space-y-8">
+                    <h2 class="text-4xl md:text-5xl data-font text-white">Driver<br><span class="text-gray-600">Telemetry</span></h2>
+                    <p class="text-gray-400 leading-relaxed max-w-md reveal-text">
+                        Precision engineering meets creative frontend development. Specialized in high-performance WebGL interactions and pixel-perfect execution. Just like in Q3, every millisecond counts.
+                    </p>
+                    
+                    <div class="flex gap-4">
+                        <div class="px-4 py-2 border border-gray-700 text-xs tracking-widest uppercase text-gray-300 hover:bg-red-600/20 transition-all cursor-crosshair">GSAP Expert</div>
+                        <div class="px-4 py-2 border border-gray-700 text-xs tracking-widest uppercase text-gray-300 hover:bg-red-600/20 transition-all cursor-crosshair">WebGL / Three.js</div>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 gap-1">
+                    <!-- Stat Item -->
+                    <div class="bg-[#0f0f0f] p-8 border border-gray-800 hover:border-red-500/50 transition-colors group">
+                        <span class="text-xs text-gray-500 uppercase tracking-widest block mb-2">Projects Shipped</span>
+                        <span class="text-5xl md:text-6xl data-font text-white counter" data-target="55">0</span>
+                        <span class="text-red-500 text-xl">+</span>
+                    </div>
+                    
+                    <!-- Stat Item -->
+                    <div class="bg-[#0f0f0f] p-8 border border-gray-800 hover:border-yellow-400/50 transition-colors group">
+                        <span class="text-xs text-gray-500 uppercase tracking-widest block mb-2">Optimize Score</span>
+                        <span class="text-5xl md:text-6xl data-font text-white counter" data-target="98">0</span>
+                        <span class="text-xs align-top text-gray-500">%</span>
+                    </div>
+
+                    <!-- Stat Item -->
+                    <div class="bg-[#0f0f0f] p-8 border border-gray-800 hover:border-blue-500/50 transition-colors group col-span-2">
+                        <span class="text-xs text-gray-500 uppercase tracking-widest block mb-2">Reaction Time</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-5xl md:text-6xl data-font text-white counter" data-target="0.21">0</span>
+                            <span class="text-sm text-gray-500 mb-2">seconds (Render)</span>
+                        </div>
+                        <div class="w-full h-1 bg-gray-800 mt-4 overflow-hidden">
+                            <div class="h-full bg-red-500 w-0 animate-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HORIZONTAL SCROLL GALLERY (THE SHOWSTOPPER) -->
+    <div id="horizontal-container" class="overflow-hidden bg-gray-900 relative">
+        <!-- Sticky Header for section -->
+        <div class="absolute top-10 left-10 z-20 mix-blend-difference pointer-events-none">
+            <h3 class="text-xl tracking-widest data-font text-white">GRAND PRIX // SELECTED WORKS</h3>
+        </div>
+
+        <!-- The Moving Strip -->
+        <div id="horizontal-strip" class="flex flex-nowrap h-screen w-[400%]">
+            
+            <!-- Panel 1: Intro/Title Card -->
+            <div class="w-screen h-screen flex-shrink-0 flex items-center justify-center border-r border-gray-800 bg-[#0a192f] relative">
+                <div class="absolute inset-0 grid-bg opacity-20"></div>
+                <h2 class="text-[10vw] leading-none text-stroke opacity-20 select-none">WORK</h2>
+                <div class="absolute z-10 max-w-lg text-center">
+                    <p class="text-sm uppercase tracking-[0.3em] text-red-500 mb-4">Sector 1</p>
+                    <h3 class="text-4xl md:text-6xl font-bold text-white mb-6">Featured<br>Circuits</h3>
+                    <p class="text-gray-400">Scroll down to navigate the track horizontally.</p>
+                </div>
+            </div>
+
+            <!-- Panel 2: Project 1 -->
+            <div class="w-screen h-screen flex-shrink-0 flex items-center justify-center border-r border-gray-800 bg-[#121212] relative project-panel">
+                <div class="flex flex-col md:flex-row items-center gap-12 px-12 w-full max-w-7xl">
+                    <div class="w-full md:w-1/2 overflow-hidden aspect-[4/3] relative group">
+                        <!-- Image with Parallax Scale -->
+                        <img src="https://images.unsplash.com/photo-1532588220736-2b75693c9513?q=80&w=2070&auto=format&fit=crop" 
+                             class="w-full h-full object-cover transform scale-125 project-img grayscale group-hover:grayscale-0 transition-all duration-700" 
+                             alt="Abstract Tech">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all"></div>
+                    </div>
+                    <div class="w-full md:w-1/2 space-y-6 text-reveal-trigger">
+                        <div class="text-red-500 text-xs tracking-widest border-b border-red-500/30 pb-2 inline-block">01 // MONACO E-COMMERCE</div>
+                        <h3 class="text-5xl font-bold text-white">Luxury Speed</h3>
+                        <p class="text-gray-400">A high-fashion headless commerce platform designed with WebGL shader effects for product reveals.</p>
+                        <a href="#" class="inline-block text-white border-b border-white pb-1 hover:text-red-500 hover:border-red-500 transition-all">View Case Study</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 3: Project 2 -->
+            <div class="w-screen h-screen flex-shrink-0 flex items-center justify-center border-r border-gray-800 bg-[#0a192f] relative project-panel">
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12 px-12 w-full max-w-7xl">
+                    <div class="w-full md:w-1/2 overflow-hidden aspect-[4/3] relative group">
+                        <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop" 
+                             class="w-full h-full object-cover transform scale-125 project-img grayscale group-hover:grayscale-0 transition-all duration-700" 
+                             alt="Car Detail">
+                    </div>
+                    <div class="w-full md:w-1/2 space-y-6 text-reveal-trigger">
+                        <div class="text-yellow-400 text-xs tracking-widest border-b border-yellow-400/30 pb-2 inline-block">02 // SILVERSTONE FINTECH</div>
+                        <h3 class="text-5xl font-bold text-white">Data Cockpit</h3>
+                        <p class="text-gray-400">Real-time financial data visualization dashboard using D3.js and React. Inspired by F1 steering wheel displays.</p>
+                        <a href="#" class="inline-block text-white border-b border-white pb-1 hover:text-yellow-400 hover:border-yellow-400 transition-all">View Case Study</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 4: Outro -->
+            <div class="w-screen h-screen flex-shrink-0 flex flex-col items-center justify-center bg-black relative">
+                <h2 class="text-[8vw] text-white data-font mb-4 text-center">PIT STOP</h2>
+                <p class="text-gray-500 max-w-md text-center mb-8">Ready to optimize your next project? Let's talk strategy.</p>
+                <a href="mailto:hello@sainz.dev" class="px-8 py-4 bg-white text-black font-bold tracking-widest hover:bg-red-600 hover:text-white transition-all duration-300 clip-path-slant">
+                    START ENGINE
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="py-12 bg-black text-center border-t border-gray-900 text-gray-600 text-xs tracking-widest">
+        <p>&copy; 2024 SMOOTH OPERATOR. INSPIRED BY CARLOS SAINZ.</p>
+    </footer>
+
+    <script>
+        // 1. Initialize Lenis for Smooth Scrolling (The Inertia Effect)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+
+        // 2. Connect Lenis to GSAP's ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0); // Critical for smooth ScrollTrigger sync
+
+        // 3. Register Plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // --- ANIMATIONS ---
+
+        // A. Hero Section Load Animation
+        const tl = gsap.timeline();
+        
+        tl.to(".hero-text-reveal", {
+            y: 0,
+            duration: 1.5,
+            ease: "power4.out",
+            stagger: 0.2,
+            delay: 0.2
+        })
+        .from(".animate-in-up", {
+            y: 20,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=1")
+        .to(".fade-in-delay", {
+            opacity: 1,
+            duration: 1
+        }, "-=0.5");
+
+        // B. Parallax Effect for Hero Title
+        gsap.to(".parallax-target", {
+            yPercent: 50,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "header",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // C. Telemetry Number Counters
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            let target = parseFloat(counter.getAttribute('data-target'));
+            
+            ScrollTrigger.create({
+                trigger: counter,
+                start: "top 85%",
+                once: true,
+                onEnter: () => {
+                    gsap.to(counter, {
+                        innerHTML: target,
+                        duration: 2,
+                        snap: { innerHTML: target % 1 === 0 ? 1 : 0.01 }, // Snap to integer or decimal
+                        ease: "power2.out"
+                    });
+                }
+            });
+        });
+        
+        // Telemetry Bar Animation
+        gsap.to(".animate-bar", {
+            width: "85%", // Simulated reaction speed
+            duration: 1.5,
+            ease: "power4.out",
+            scrollTrigger: {
+                trigger: ".animate-bar",
+                start: "top 90%"
+            }
+        });
+
+        // D. Horizontal Scroll Gallery (The Core "Lando" feature)
+        let sections = gsap.utils.toArray("#horizontal-strip > div");
+        
+        gsap.to(sections, {
+            xPercent: -100 * (sections.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#horizontal-container",
+                pin: true,
+                scrub: 1,
+                snap: 1 / (sections.length - 1),
+                end: () => "+=" + document.querySelector("#horizontal-container").offsetWidth * 2 // Adjust scroll length
+            }
+        });
+
+        // E. Image Parallax inside Horizontal Scroll
+        document.querySelectorAll('.project-panel').forEach(panel => {
+            let img = panel.querySelector('.project-img');
+            
+            if(img) {
+                gsap.to(img, {
+                    scale: 1, // Scale down from 1.25 to 1
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: panel,
+                        containerAnimation: gsap.getTweensOf(sections)[0], // Link to horizontal tween
+                        start: "left center",
+                        end: "right center",
+                        scrub: true
+                    }
+                });
+            }
+        });
+
+        // F. Custom Cursor Logic
+        const cursor = document.querySelector('.cursor-dot');
+        
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1,
+                ease: "power2.out"
+            });
+        });
+
+        // Hover interactions for cursor
+        const links = document.querySelectorAll('a, .cursor-crosshair');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                gsap.to(cursor, { scale: 3, backgroundColor: "#fff", duration: 0.3 });
+            });
+            link.addEventListener('mouseleave', () => {
+                gsap.to(cursor, { scale: 1, backgroundColor: "#ff2800", duration: 0.3 });
+            });
+        });
+
+    </script>
+</body>
+</html>
